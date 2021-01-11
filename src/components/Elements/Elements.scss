@@ -1,0 +1,93 @@
+.c-field {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 0 5px;
+
+    &__message {
+        display: inline;
+        color: red;
+    }
+
+    &__label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+   // &__input-wrapper {}
+}
+
+@mixin input-base {
+    background-color: #eee;
+    border: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 10px 20px;
+    text-align: center;
+
+    &:hover, &:focus {
+        border: solid 2px #000;
+        outline: 0;
+        padding: 8px 18px;
+    }
+
+    &.--wide {
+        width: 100%;
+    }
+
+}
+
+.c-text-input {
+    @include input-base();
+}
+
+.c-number-input {
+    @include input-base();
+}
+
+.c-select-input {
+    @include input-base();
+    text-align-last: center;
+    
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.c-checkbox-input {
+    background: #eee;
+    border: 21px solid #eee;
+    height: 38px;
+    width: 38px;
+
+    &::after {
+        background: #eee;
+        content: '';
+        height: 38px;
+        position: absolute;
+        width: 38px;
+    }
+
+    &:checked::after {
+        color: #000;
+        content: '✓';
+        font-size:20px;
+        font-weight: bold;
+        line-height: 38px;
+        position: absolute;
+        text-align: center;
+    }
+
+}
+
+.c-submit-input {
+    background: #0f5cdb;
+    border: none;
+    color: #fff;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1rem;
+    margin: 0px;
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
