@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Sarabun:ital,wght@1,700&display=swap');
+
+html {
+  font-size: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  color: #000;
+  background-color: #eee;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.75;
+  margin: 0;
+}
