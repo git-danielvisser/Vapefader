@@ -1,69 +1,46 @@
-import LiquidsInfo from "./LiquidsInfo.js";
+import React from "react";
+import SchemaItemChips from "./SchemaItemChips";
+import LiquidMixes from "./LiquidMixes/LiquidMixes";
 
 import {
   Box,
-  Grid,
   Card,
-  CardHeader,
   CardContent,
-  Chip,
+  CardHeader,
   Divider,
+  Grid,
   Typography,
 } from "@material-ui/core";
-import { SmokeFree, Opacity } from "@material-ui/icons";
-
-function SchemaItemInfo(props) {
-  const { nicotineMg, sessions } = props;
-
-  return (
-    <Grid container spacing={3} justify="center">
-      <Grid item xs={12}>
-        <Typography component="p">
-          This is your first day, good luck! We need to hava a custom message
-          for most boxes :)
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={1} justify="center">
-          <Grid item>
-            <Chip
-              label={sessions + " sessions"}
-              icon={<SmokeFree />}
-              variant="outline"
-              color={sessions !== 0 ? "secondary" : "default"}
-            />
-          </Grid>
-          <Grid item>
-            <Chip
-              label={nicotineMg + " mg/ml"}
-              icon={<Opacity />}
-              variant="outline"
-              color={nicotineMg !== 0 ? "primary" : "default"}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
-}
 
 export default function SchemaItem(props) {
-  const { date, nicotineMg, sessions, liquidMixes } = props;
+  const { date, strength, sessions, message, liquidMixes } = props;
   return (
-    <Card>
+    <Card align="center">
       <CardHeader title={date}></CardHeader>
       <Divider />
       <CardContent>
-        <Grid container spacing={3} justify="center">
-          <Grid item xs={12} md={9}>
-            <SchemaItemInfo nicotineMg={nicotineMg} sessions={sessions} />
-          </Grid>
-          {liquidMixes && (
-            <Grid item xs={12} md={12}>
-              <LiquidsInfo liquidMixes={liquidMixes} />
+        <Box mt={1}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <SchemaItemChips strength={strength} sessions={sessions} />
             </Grid>
-          )}
-        </Grid>
+            {message !== undefined && (
+              <Grid item xs={12}>
+                <Typography component="p">{message}</Typography>
+              </Grid>
+            )}
+            {liquidMixes && (
+              <React.Fragment>
+                <Grid item xs={12}>
+                  <Divider />
+                </Grid>
+                <Grid item xs={12}>
+                  <LiquidMixes liquidMixes={liquidMixes} />
+                </Grid>
+              </React.Fragment>
+            )}
+          </Grid>
+        </Box>
       </CardContent>
     </Card>
   );
