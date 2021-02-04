@@ -4,6 +4,23 @@ import DividerText from "../Elements/DividerText.js";
 
 import { Grid, Typography, Box } from "@material-ui/core";
 
+export default function Schema(props) {
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <Box mb={5}>
+          <Typography align="center" variant="h4" component="h2">
+            Your quitting schema!
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        {renderSchemaItems(props.schemaItems)}
+      </Grid>
+    </Grid>
+  );
+}
+
 function renderSchemaItems(items) {
   if (!Array.isArray(items) || items.length < 1) return;
 
@@ -30,11 +47,12 @@ function renderSchemaItems(items) {
     previousDate = item.date;
 
     gridItems.push(
-      <Grid item xs>
+      <Grid item xs={12} md>
         <SchemaItem
           date={formatItemDate(item.date)}
-          nicotineMg={item.nicotineMg}
+          strength={item.strength}
           sessions={item.sessions}
+          message={item.message}
           liquidMixes={item.liquidMixes ? item.liquidMixes : false}
         />
       </Grid>
@@ -44,23 +62,6 @@ function renderSchemaItems(items) {
   return (
     <Grid container spacing={2} alignItems="stretch" alignContent="stretch">
       {gridItems}
-    </Grid>
-  );
-}
-
-export default function Schema(props) {
-  return (
-    <Grid container align="center">
-      <Grid item xs={12}>
-        <Box mb={5}>
-          <Typography variant="h4" component="h2">
-            Your quitting schema!
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item xs={12}>
-        {renderSchemaItems(props.schemaData)}
-      </Grid>
     </Grid>
   );
 }
