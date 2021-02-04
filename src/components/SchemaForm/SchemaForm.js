@@ -2,12 +2,12 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import DateFnsUtils from "@date-io/date-fns";
-import { Grid, TextField, MenuItem, Button } from "@material-ui/core";
+import { Button, Grid, MenuItem, TextField } from "@material-ui/core";
 import {
-  MuiPickersUtilsProvider,
   KeyboardDatePicker,
+  MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import MultipleSelect from "./MultipleSelect";
+import MultipleSelect from "../Elements/MultipleSelect";
 
 function SchemaForm(props) {
   const reqMes = "This field is required!";
@@ -16,15 +16,15 @@ function SchemaForm(props) {
     initialValues: {
       device: "vaporizer",
       startDate: new Date(),
-      sessions: "20",
-      nicotineSteps: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+      sessions: 20,
+      strengths: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
       decreaseFrequentie: "20",
     },
     validationSchema: Yup.object({
       device: Yup.mixed().oneOf(["vaporizer", "cigarette"]),
       startDate: Yup.date().required(reqMes),
       sessions: Yup.number().required(reqMes).min(0).max(100),
-      nicotineSteps: Yup.array().of(Yup.number().min(0).max(18)).min(3),
+      strengths: Yup.array().of(Yup.number().min(0).max(24)).min(3),
       decreaseFrequentie: Yup.number().required(reqMes).min(0).max(100),
     }),
     onSubmit: (values) => {
@@ -33,7 +33,7 @@ function SchemaForm(props) {
   });
 
   const isVape = formik.values.device === "vaporizer";
-  const nicotineMgOptions = Array(19)
+  const strengthOptions = Array(25)
     .fill()
     .map((val, i) => ({ label: i + " mg/ml", value: i }))
     .reverse();
@@ -103,14 +103,14 @@ function SchemaForm(props) {
         {isVape && (
           <Grid item xs={12}>
             <MultipleSelect
-              id="nicotineSteps"
-              name="nicotineSteps"
+              id="strengths"
+              name="strengths"
               label="Decrease nicotine mg/ml in steps"
               placeholder="12, 10, 8 , 7, 3, 0"
-              value={formik.values.nicotineSteps}
-              error={formik.errors.nicotineSteps}
+              value={formik.values.strengths}
+              error={formik.errors.strengths}
               onChange={formik.handleChange}
-              options={nicotineMgOptions}
+              options={strengthOptions}
               variant="outlined"
             />
           </Grid>
