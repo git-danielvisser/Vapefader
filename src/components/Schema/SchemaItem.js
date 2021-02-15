@@ -41,7 +41,7 @@ export default function SchemaItem({
                 {sessions !== undefined && (
                   <Grid item>
                     <Chip
-                      label={`${sessions} sessions"`}
+                      label={`${sessions} sessions`}
                       icon={<SmokeFree />}
                       color={sessions !== 0 ? "secondary" : "default"}
                     />
@@ -50,7 +50,7 @@ export default function SchemaItem({
                 {strength !== undefined && (
                   <Grid item>
                     <Chip
-                      label={`${strength} mg/ml"`}
+                      label={`${strength} mg/ml`}
                       icon={<Opacity />}
                       color={strength !== 0 ? "primary" : "default"}
                     />
