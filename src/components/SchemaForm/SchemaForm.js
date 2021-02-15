@@ -9,16 +9,25 @@ import {
 } from "@material-ui/pickers";
 import MultipleSelect from "../Elements/MultipleSelect";
 
+const STRENGTH_OPTIONS = Array(25)
+  .fill()
+  .map((val, i) => ({ label: i + " mg/ml", value: i }))
+  .reverse();
+
+const DEVICE_OPTIONS = [
+  { label: "Vaping", value: "vaporizer" },
+  { label: "Smoking", value: "cigarette" },
+];
+
 function SchemaForm(props) {
   const reqMes = "This field is required!";
-
   const formik = useFormik({
     initialValues: {
       device: "vaporizer",
       startDate: new Date(),
       sessions: 20,
       strengths: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-      decreaseFrequentie: "20",
+      decreaseFrequentie: 7,
     },
     validationSchema: Yup.object({
       device: Yup.mixed().oneOf(["vaporizer", "cigarette"]),
@@ -32,16 +41,8 @@ function SchemaForm(props) {
     },
   });
 
-  const isVape = formik.values.device === "vaporizer";
-  const strengthOptions = Array(25)
-    .fill()
-    .map((val, i) => ({ label: i + " mg/ml", value: i }))
-    .reverse();
-
-  const deviceOptions = [
-    { label: "Vaping", value: "vaporizer" },
-    { label: "Smoking", value: "cigarette" },
-  ];
+  const { values, errors, handleChange } = formik;
+  const isVape = values.device === "vaporizer";
 
   return (
     <form className="schema-form" onSubmit={formik.handleSubmit}>
@@ -51,14 +52,14 @@ function SchemaForm(props) {
             select
             id="device"
             name="device"
+            value={values.device}
+            error={errors.device}
+            onChange={handleChange}
             label="I want to quit"
-            value={formik.values.device}
-            error={formik.errors.device}
-            onChange={formik.handleChange}
             variant="outlined"
             fullWidth
           >
-            {deviceOptions.map((option) => (
+            {DEVICE_OPTIONS.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -68,19 +69,19 @@ function SchemaForm(props) {
         <Grid item xs={12}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              inputVariant="outlined"
-              format="dd/MM/yyyy"
               id="startDate"
               name="startDate"
               label="Start date"
-              value={formik.values.startDate}
-              error={formik.errors.startDate}
+              value={values.startDate}
+              error={errors.startDate}
               onChange={(date) => formik.setFieldValue("startDate", date)}
+              format="dd/MM/yyyy"
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
+              variant="inline"
+              inputVariant="outlined"
+              disableToolbar
               fullWidth
             />
           </MuiPickersUtilsProvider>
@@ -90,12 +91,12 @@ function SchemaForm(props) {
             type="number"
             id="sessions"
             name="sessions"
+            value={values.sessions}
+            error={errors.sessions}
+            onChange={handleChange}
             inputProps={{ min: 0, max: 100, step: 1 }}
-            label={(isVape ? "Vape" : "Smoke") + " sessions a day"}
             placeholder="20 sessions"
-            value={formik.values.sessions}
-            error={formik.errors.sessions}
-            onChange={formik.handleChange}
+            label={(isVape ? "Vape" : "Smoke") + " sessions a day"}
             variant="outlined"
             fullWidth
           />
@@ -105,12 +106,12 @@ function SchemaForm(props) {
             <MultipleSelect
               id="strengths"
               name="strengths"
+              value={values.strengths}
+              error={errors.strengths}
+              onChange={handleChange}
+              options={STRENGTH_OPTIONS}
               label="Decrease nicotine mg/ml in steps"
               placeholder="12, 10, 8 , 7, 3, 0"
-              value={formik.values.strengths}
-              error={formik.errors.strengths}
-              onChange={formik.handleChange}
-              options={strengthOptions}
               variant="outlined"
             />
           </Grid>
@@ -120,12 +121,12 @@ function SchemaForm(props) {
             type="number"
             id="decreaseFrequentie"
             name="decreaseFrequentie"
+            value={values.decreaseFrequentie}
+            error={errors.decreaseFrequentie}
+            onChange={handleChange}
             inputProps={{ min: 0, max: 100, step: 1 }}
-            label="Decrease every x days"
             placeholder="7"
-            value={formik.values.decreaseFrequentie}
-            error={formik.errors.decreaseFrequentie}
-            onChange={formik.handleChange}
+            label="Decrease every x days"
             variant="outlined"
             fullWidth
           />
@@ -136,6 +137,7 @@ function SchemaForm(props) {
             size="large"
             variant="contained"
             color="primary"
+            disabled={props.isLoading}
           >
             Generate schema!
           </Button>
