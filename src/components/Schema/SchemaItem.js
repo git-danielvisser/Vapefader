@@ -1,28 +1,57 @@
 import React from "react";
-import SchemaItemChips from "./SchemaItemChips";
-import LiquidMixes from "./LiquidMixes/LiquidMixes";
+import LiquidMixesDialog from "./LiquidMixes/LiquidMixesDialog";
 
 import {
   Box,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   Divider,
   Grid,
   Typography,
 } from "@material-ui/core";
+import { SmokeFree, Opacity } from "@material-ui/icons";
 
-export default function SchemaItem(props) {
-  const { date, strength, sessions, message, liquidMixes } = props;
+export default function SchemaItem({
+  date,
+  strength,
+  sessions,
+  message,
+  liquidMixes,
+}) {
   return (
-    <Card align="center">
+    <Card align="center" style={{ height: "100%", minWidth: "200px" }}>
       <CardHeader title={date}></CardHeader>
       <Divider />
       <CardContent>
         <Box mt={1}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <SchemaItemChips strength={strength} sessions={sessions} />
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Grid container spacing={1} justify="center">
+                    {sessions !== undefined && (
+                      <Grid item>
+                        <Chip
+                          label={sessions + " sessions"}
+                          icon={<SmokeFree />}
+                          color={sessions !== 0 ? "secondary" : "default"}
+                        />
+                      </Grid>
+                    )}
+                    {strength !== undefined && (
+                      <Grid item>
+                        <Chip
+                          label={strength + " mg/ml"}
+                          icon={<Opacity />}
+                          color={strength !== 0 ? "primary" : "default"}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
             {message !== undefined && (
               <Grid item xs={12}>
@@ -35,7 +64,7 @@ export default function SchemaItem(props) {
                   <Divider />
                 </Grid>
                 <Grid item xs={12}>
-                  <LiquidMixes liquidMixes={liquidMixes} />
+                  <LiquidMixesDialog liquidMixes={liquidMixes} />
                 </Grid>
               </React.Fragment>
             )}
