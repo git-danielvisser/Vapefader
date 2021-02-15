@@ -1,63 +1,88 @@
 import React, { useState } from "react";
-import LiquidMixesTable from "./LiquidMixesTable";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Grid,
-  Typography,
-} from "@material-ui/core";
-import { Opacity } from "@material-ui/icons";
+import LiquidMixPart from "./LiquidMixPart";
+import { Box, Divider, Grid, TextField, Typography } from "@material-ui/core";
 
-export default function LiquidMixes(props) {
-  const [open, setOpen] = useState(false);
+export default function LiquidsMixesTable(props) {
+  const [bottleML, setbottleML] = useState(10);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const hanleOnChange = (e) => {
+    const value = e.target.value;
+    if (value.length < 5) {
+      setbottleML(value);
+    }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const getMLPart = (ml, percentage) => ((ml / 100) * percentage).toFixed(1);
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography component="p" variant="body2">
-            If this nicotine strength is not available,
-          </Typography>
-          <Typography component="p" variant="body2">
-            you can make your own liquid or mix them.
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Box>
-            <Typography component="h5">
-              <Button
-                onClick={handleClickOpen}
-                variant="outlined"
-                color="primary"
-                endIcon={<Opacity />}
-              >
-                Liquid mixes
-              </Button>
-            </Typography>
-            <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
-              <DialogTitle>Liquid mixes</DialogTitle>
-              <Divider />
-              <DialogContent style={{ background: "#eee" }}>
-                <Box my={2}>
-                  <LiquidMixesTable liquidMixes={props.liquidMixes} />
+      <Box p={3}>
+        <TextField
+          label="ML per bottle"
+          type="number"
+          inputProps={{ min: 0, max: 100, step: 1 }}
+          value={bottleML}
+          onChange={hanleOnChange}
+          variant="outlined"
+          fullWidth
+        />
+      </Box>
+      <Box
+        py={3}
+        style={{
+          background: "#eee",
+          overflowY: "auto",
+          overflowX: "hidden",
+          maxHeight: "600px",
+        }}
+      >
+        <Grid container spacing={3}>
+          {props.liquidMixes.map(({ strength, liquids }) => (
+            <React.Fragment>
+              <Grid item xs={12}>
+                <Box px={3}>
+                  <Grid container alignItems="center" justify="center">
+                    <Grid item xs={12} md>
+                      <LiquidMixPart
+                        strength={liquids[0].strength}
+                        percentage={liquids[0].percentage}
+                        ml={getMLPart(bottleML, liquids[0].percentage)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Box px={2} py={1}>
+                        <Typography align="center">+</Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} md>
+                      <LiquidMixPart
+                        strength={liquids[1].strength}
+                        percentage={liquids[1].percentage}
+                        ml={getMLPart(bottleML, liquids[1].percentage)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Box px={2} py={1}>
+                        <Typography align="center">=</Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} md>
+                      <LiquidMixPart
+                        strength={strength.toFixed(2)}
+                        percentage={100}
+                        ml={bottleML}
+                      />
+                    </Grid>
+                  </Grid>
                 </Box>
-              </DialogContent>
-            </Dialog>
-          </Box>
+              </Grid>
+              <Grid item xs={12} md>
+                <Divider />
+              </Grid>
+            </React.Fragment>
+          ))}
         </Grid>
-      </Grid>
+      </Box>
     </Box>
   );
 }
