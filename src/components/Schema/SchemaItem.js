@@ -15,9 +15,9 @@ import {
 import { SmokeFree, Opacity } from "@material-ui/icons";
 
 const useStyles = makeStyles({
-  schemaItem:{
-    height: '100%',
-  }
+  schemaItem: {
+    height: "100%",
+  },
 });
 
 export default function SchemaItem({
@@ -27,7 +27,6 @@ export default function SchemaItem({
   message,
   liquidMixes,
 }) {
-
   const classes = useStyles();
 
   return (
@@ -38,8 +37,7 @@ export default function SchemaItem({
         <Box mt={1}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
+         
                   <Grid container spacing={1} justify="center">
                     {sessions !== undefined && (
                       <Grid item>
@@ -60,8 +58,7 @@ export default function SchemaItem({
                       </Grid>
                     )}
                   </Grid>
-                </Grid>
-              </Grid>
+        
             </Grid>
             {message !== undefined && (
               <Grid item xs={12}>
