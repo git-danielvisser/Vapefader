@@ -2,17 +2,19 @@
 
 import { TextField, MenuItem, Checkbox, ListItemText } from "@material-ui/core";
 
-export default function MultipleSelect({
-  id,
-  name,
-  label,
-  placeholder,
-  value,
-  error,
-  options,
-  onChange,
-  variant,
-}) {
+export default function MultipleSelect(props) {
+  const {
+    id,
+    name,
+    label,
+    placeholder,
+    value,
+    error,
+    options,
+    onChange,
+    variant,
+  } = props;
+
   const handleChange = (e) => {
     const ordered = [];
     options.forEach((option) => {
