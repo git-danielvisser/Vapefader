@@ -20,13 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SchemaItem({
-  date,
-  strength,
-  sessions,
-  message,
-  liquidMixes,
-}) {
+export default function SchemaItem(props) {
+  const { date, strength, sessions, message, liquidMixes } = props;
   const classes = useStyles();
 
   return (

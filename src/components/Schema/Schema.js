@@ -27,33 +27,35 @@ function renderSchemaItems(items) {
   const gridItems = [];
   let previousDate = null;
   items.forEach((item, i) => {
+    const { date, strength, sessions, message, liquidMixes } = item;
+    
     if (
       !previousDate ||
-      item.date.getMonth() > previousDate.getMonth() ||
-      item.date.getFullYear() > previousDate.getFullYear()
+      date.getMonth() > previousDate.getMonth() ||
+      date.getFullYear() > previousDate.getFullYear()
     ) {
       gridItems.push(
         <Grid item xs={12}>
           <Box mt={2} mb={2}>
             <DividerText>
               <Typography variant="body2" component="h5">
-                {formatDividerDate(item.date)}
+                {formatDividerDate(date)}
               </Typography>
             </DividerText>
           </Box>
         </Grid>
       );
     }
-    previousDate = item.date;
+    previousDate = date;
 
     gridItems.push(
       <Grid item xs={12} md={4}>
         <SchemaItem
-          date={formatItemDate(item.date)}
-          strength={item.strength}
-          sessions={item.sessions}
-          message={item.message}
-          liquidMixes={item.liquidMixes ? item.liquidMixes : false}
+          date={formatItemDate(date)}
+          strength={strength}
+          sessions={sessions}
+          message={message}
+          liquidMixes={liquidMixes ? liquidMixes : false}
         />
       </Grid>
     );

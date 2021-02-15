@@ -23,13 +23,15 @@ import {
  * @property {liquidMixes} liquidMixes - All the possible liquid mixes that have a similar nicotine mg/ml as given strength.
  * @property {string} message - The message that should be displayed to the user.
  */
-export default function generateSchema({
-  device,
-  startDate,
-  sessions,
-  strengths,
-  decreaseFrequentie,
-}) {
+export default function generateSchema(schemaData) {
+  const {
+    device,
+    startDate,
+    sessions,
+    strengths,
+    decreaseFrequentie,
+  } = schemaData;
+
   if (device === "cigarette") {
     const sessionItems = datesFromFrequentie(
       startDate,

@@ -11,7 +11,8 @@ const useStyles = makeStyles({
   tagline: { color: "#fff", fontSize: "1rem" },
 });
 
-function Branding({ brand, tagline }) {
+function Branding(props) {
+  const { brand, tagline } = props;
   const classes = useStyles();
 
   return (
