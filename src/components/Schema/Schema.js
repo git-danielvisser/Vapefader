@@ -9,7 +9,7 @@ export default function Schema(props) {
     <Grid container>
       <Grid item xs={12}>
         <Box mb={5}>
-          <Typography align="center" variant="h4" component="h2">
+          <Typography align="center" variant="h5" component="h2">
             Your quitting schema!
           </Typography>
         </Box>
@@ -34,7 +34,7 @@ function renderSchemaItems(items) {
     ) {
       gridItems.push(
         <Grid item xs={12}>
-          <Box mt={1} mb={1}>
+          <Box mt={2} mb={2}>
             <DividerText>
               <Typography variant="body2" component="h5">
                 {formatDividerDate(item.date)}
@@ -47,7 +47,7 @@ function renderSchemaItems(items) {
     previousDate = item.date;
 
     gridItems.push(
-      <Grid item xs={12} md>
+      <Grid item xs={12} md={4}>
         <SchemaItem
           date={formatItemDate(item.date)}
           strength={item.strength}
@@ -60,7 +60,7 @@ function renderSchemaItems(items) {
   });
 
   return (
-    <Grid container spacing={2} alignItems="stretch" alignContent="stretch">
+    <Grid container spacing={2} alignItems="stretch">
       {gridItems}
     </Grid>
   );
@@ -73,6 +73,6 @@ function formatDividerDate(date) {
 function formatItemDate(date) {
   return date.toLocaleString("default", {
     day: "numeric",
-    month: "long",
+    month: "short",
   });
 }
