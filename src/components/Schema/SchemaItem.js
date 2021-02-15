@@ -10,8 +10,15 @@ import {
   Divider,
   Grid,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import { SmokeFree, Opacity } from "@material-ui/icons";
+
+const useStyles = makeStyles({
+  schemaItem:{
+    height: '100%',
+  }
+});
 
 export default function SchemaItem({
   date,
@@ -20,8 +27,11 @@ export default function SchemaItem({
   message,
   liquidMixes,
 }) {
+
+  const classes = useStyles();
+
   return (
-    <Card align="center" style={{ height: "100%", minWidth: "200px" }}>
+    <Card align="center" className={classes.schemaItem}>
       <CardHeader title={date}></CardHeader>
       <Divider />
       <CardContent>
