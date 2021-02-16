@@ -13,6 +13,7 @@ import {
 import { Opacity } from "@material-ui/icons";
 
 export default function LiquidMixesDialog(props) {
+  const { strength, liquidMixes } = props;
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -28,7 +29,7 @@ export default function LiquidMixesDialog(props) {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography component="p" variant="body2">
-            Mix your own liquids to 3mg/ml.
+            Mix your own liquids to {strength}mg/ml.
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -47,7 +48,7 @@ export default function LiquidMixesDialog(props) {
               <DialogTitle>Liquid mixes</DialogTitle>
               <Divider />
               <DialogContent style={{ padding: "0px", overflow: "hidden" }}>
-                <LiquidMixes liquidMixes={props.liquidMixes} />
+                <LiquidMixes liquidMixes={liquidMixes} />
               </DialogContent>
             </Dialog>
           </Box>

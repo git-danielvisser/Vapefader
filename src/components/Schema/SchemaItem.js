@@ -72,7 +72,7 @@ export default function SchemaItem(props) {
         <React.Fragment>
           <Divider />
           <Box p={3}>
-            <LiquidMixesDialog liquidMixes={liquidMixes} />
+            <LiquidMixesDialog strength={strength} liquidMixes={liquidMixes} />
           </Box>
         </React.Fragment>
       )}
