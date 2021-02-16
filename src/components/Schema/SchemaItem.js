@@ -4,6 +4,7 @@ import LiquidMixesDialog from "./LiquidMixes/LiquidMixesDialog";
 import {
   Box,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   Chip,
@@ -35,7 +36,7 @@ export default function SchemaItem(props) {
       <CardHeader title={dayMonth} subheader={weekday}></CardHeader>
       <Divider />
       <CardContent>
-        <Box mt={1}>
+        <Box p={1}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Grid container spacing={1} justify="center">
@@ -64,19 +65,17 @@ export default function SchemaItem(props) {
                 <Typography component="p">{message}</Typography>
               </Grid>
             )}
-            {liquidMixes && (
-              <React.Fragment>
-                <Grid item xs={12}>
-                  <Divider />
-                </Grid>
-                <Grid item xs={12}>
-                  <LiquidMixesDialog liquidMixes={liquidMixes} />
-                </Grid>
-              </React.Fragment>
-            )}
           </Grid>
         </Box>
       </CardContent>
+      {liquidMixes && (
+        <React.Fragment>
+          <Divider />
+          <Box p={3}>
+            <LiquidMixesDialog liquidMixes={liquidMixes} />
+          </Box>
+        </React.Fragment>
+      )}
     </Card>
   );
 }
