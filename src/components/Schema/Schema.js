@@ -28,18 +28,23 @@ function renderSchemaItems(items) {
   let previousDate = null;
   items.forEach((item, i) => {
     const { date, strength, sessions, message, liquidMixes } = item;
-    
+
     if (
       !previousDate ||
       date.getMonth() > previousDate.getMonth() ||
       date.getFullYear() > previousDate.getFullYear()
     ) {
+      const monthYear = date.toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      });
+      
       gridItems.push(
         <Grid item xs={12}>
           <Box mt={2} mb={2}>
             <DividerText>
               <Typography variant="body2" component="h5">
-                {formatDividerDate(date)}
+                {monthYear}
               </Typography>
             </DividerText>
           </Box>
@@ -51,7 +56,7 @@ function renderSchemaItems(items) {
     gridItems.push(
       <Grid item xs={12} md={4}>
         <SchemaItem
-          date={formatItemDate(date)}
+          date={date}
           strength={strength}
           sessions={sessions}
           message={message}
@@ -66,15 +71,4 @@ function renderSchemaItems(items) {
       {gridItems}
     </Grid>
   );
-}
-
-function formatDividerDate(date) {
-  return date.toLocaleString("default", { month: "long", year: "numeric" });
-}
-
-function formatItemDate(date) {
-  return date.toLocaleString("default", {
-    day: "numeric",
-    month: "short",
-  });
 }

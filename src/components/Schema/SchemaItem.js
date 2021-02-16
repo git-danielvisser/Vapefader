@@ -24,9 +24,15 @@ export default function SchemaItem(props) {
   const { date, strength, sessions, message, liquidMixes } = props;
   const classes = useStyles();
 
+  const dayMonth = date.toLocaleString("default", {
+    day: "numeric",
+    month: "long",
+  });
+  const weekday = date.toLocaleString("default", { weekday: "long" });
+
   return (
     <Card align="center" className={classes.schemaItem}>
-      <CardHeader title={date}></CardHeader>
+      <CardHeader title={dayMonth} subheader={weekday}></CardHeader>
       <Divider />
       <CardContent>
         <Box mt={1}>
