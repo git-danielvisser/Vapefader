@@ -14,4 +14,3 @@ export const SESSION_PROGRESS_MESSAGES = {
   threeQaurter: "Almost there, just a bit more.⌛️🏁",
   end: "You made it, goodbye bad habit!! 📈❤️💎🤑",
 };
-
