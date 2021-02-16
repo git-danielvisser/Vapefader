@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import LiquidMixPart from "./LiquidMixPart";
-import { Box, Divider, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
+
+const useStyles = makeStyles({
+  scrollBox: {
+    background: "#eee",
+    overflowY: "auto",
+    overflowX: "hidden",
+    maxHeight: "600px",
+  },
+});
 
 export default function LiquidsMixesTable(props) {
+  const classes = useStyles();
   const [bottleML, setbottleML] = useState(10);
 
   const hanleOnChange = (e) => {
@@ -27,15 +44,7 @@ export default function LiquidsMixesTable(props) {
           fullWidth
         />
       </Box>
-      <Box
-        py={3}
-        style={{
-          background: "#eee",
-          overflowY: "auto",
-          overflowX: "hidden",
-          maxHeight: "600px",
-        }}
-      >
+      <Box py={3} className={classes.scrollBox}>
         <Grid container spacing={3}>
           {props.liquidMixes.map(({ strength, liquids }) => (
             <React.Fragment>
