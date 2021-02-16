@@ -3,7 +3,7 @@ import { isCloserToValue } from "../helpers.js";
 /**
  * Finds all the possible liquid mixes that match targetStrength as closely as possible.
  * @param {number} targetStrength - The desired amount of nicotine mg/ml.
- * @returns {array}
+ * @returns {[]}
  */
 export default function getBestLiquidMixes(targetStrength) {
   const strengths = [24, 18, 12, 6, 3, 0];
@@ -17,7 +17,10 @@ export default function getBestLiquidMixes(targetStrength) {
       }
 
       const mix = getBestLiquidsMix(strengths[a], strengths[b], targetStrength);
-      if (mix !== null && Math.abs(mix.strength - targetStrength) <= 0.1) {
+      if (mix === null) continue;
+
+      const difference = Math.abs(mix.strength - targetStrength);
+      if (difference <= 0.1) {
         mixes.push(mix);
       }
     }
@@ -25,43 +28,38 @@ export default function getBestLiquidMixes(targetStrength) {
 
   if (mixes.length > 0) {
     return mixes;
+  } else {
+    return null;
   }
-
-  return null;
 }
 
 /**
  * Finds the liquid mix mix to the desired strength.
  * @param {number} strengthA - The nicotine mg/ml of liquid a.
  * @param {number} strengthB - The nicotine mg/ml of liquid b.
- * @param {number} targetStrength - The desired nicotine mg/ml.
- * @returns {liquidMix}
- * 
- * return object
- * @typedef {Object} liquidMix
- * @property {number} strength - The date of the item.
+ * @param {number} targetStrength - The desired nicotine mg/ml of the mix.
+ * @returns {{}}
  */
 function getBestLiquidsMix(strengthA, strengthB, targetStrength) {
-  let mix;
+  let mix = null;
 
-  for (let percentA = 0; percentA < 101; percentA++) {
-    const percentB = 100 - percentA;
-    const partA = (strengthA / 100) * percentA;
-    const partB = (strengthB / 100) * percentB;
+  for (let i = 0; i < 101; i++) {
+    const percentageA = i;
+    const percentageB = 100 - i;
+    const partA = (strengthA / 100) * percentageA;
+    const partB = (strengthB / 100) * percentageB;
     const strength = partA + partB;
 
-    if (!mix || isCloserToValue(strength, mix.strength, targetStrength)) {
-      mix = {
-        strength: strength,
-        liquids: [
-          { strength: strengthA, percentage: percentA },
-          { strength: strengthB, percentage: percentB },
-        ],
-      };
-    } else {
-      return mix;
-    }
+    if (mix && !isCloserToValue(strength, mix.strength, targetStrength)) break;
+
+    mix = {
+      strength: strength,
+      liquids: [
+        { strength: strengthA, percentage: percentageA },
+        { strength: strengthB, percentage: percentageB },
+      ],
+    };
   }
 
-  return null;
+  return mix;
 }
