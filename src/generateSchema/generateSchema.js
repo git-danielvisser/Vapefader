@@ -1,8 +1,8 @@
 // https://www.thehealthy.com/addiction/smoking/health-improvements-stop-vaping/
 import getBestLiquidMixes from "./getBestLiquidMixes.js";
 import {
-  strengthProgressMessages,
-  sessionProgressMessages,
+  STRENGTH_PROGRESS_MESSAGES,
+  SESSION_PROGRESS_MESSAGES,
 } from "./schemaMessages.js";
 
 /**
@@ -41,7 +41,7 @@ export default function generateSchema(schemaData) {
       date: date,
       sessions: sessions - i,
     }));
-    addProgressMessages(sessionItems, sessionProgressMessages);
+    addProgressMessages(sessionItems, SESSION_PROGRESS_MESSAGES);
     return sessionItems;
   }
 
@@ -67,8 +67,8 @@ export default function generateSchema(schemaData) {
     sessions: sessions - i - 1,
   }));
 
-  addProgressMessages(strengthItems, strengthProgressMessages);
-  addProgressMessages(sessionItems, sessionProgressMessages);
+  addProgressMessages(strengthItems, STRENGTH_PROGRESS_MESSAGES);
+  addProgressMessages(sessionItems, SESSION_PROGRESS_MESSAGES);
 
   return strengthItems.concat(sessionItems);
 }
