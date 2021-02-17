@@ -1,4 +1,5 @@
-# Vapefader - Gradually quit vaping or smoking.
+# Vapefader
+##  Gradually quit vaping or smoking
 
 	** Learning project and work in progress **
 
