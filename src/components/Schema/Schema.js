@@ -38,7 +38,7 @@ function renderSchemaItems(items) {
         month: "long",
         year: "numeric",
       });
-      
+
       gridItems.push(
         <Grid item xs={12}>
           <Box mt={2} mb={2}>
