@@ -10,8 +10,8 @@ export default function LiquidMix(props) {
       <Grid item xs={12} md>
         <LiquidMixPart
           strength={liquids[0].strength}
-          percentage={liquids[0].percentage}
-          ml={getPercentage(bottleML, liquids[0].percentage).toFixed(1)}
+          percent={liquids[0].percent}
+          ml={getPercentage(bottleML, liquids[0].percent).toFixed(1)}
         />
       </Grid>
       <Grid item>
@@ -22,8 +22,8 @@ export default function LiquidMix(props) {
       <Grid item xs={12} md>
         <LiquidMixPart
           strength={liquids[1].strength}
-          percentage={liquids[1].percentage}
-          ml={getPercentage(bottleML, liquids[1].percentage).toFixed(1)}
+          percent={liquids[1].percent}
+          ml={getPercentage(bottleML, liquids[1].percent).toFixed(1)}
         />
       </Grid>
       <Grid item>
@@ -34,7 +34,7 @@ export default function LiquidMix(props) {
       <Grid item xs={12} md>
         <LiquidMixPart
           strength={strength.toFixed(2)}
-          percentage={100}
+          percent={100}
           ml={bottleML}
         />
       </Grid>

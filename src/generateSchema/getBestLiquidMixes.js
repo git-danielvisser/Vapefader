@@ -44,10 +44,10 @@ function getBestLiquidsMix(strengthA, strengthB, targetStrength) {
   let mix = null;
 
   for (let i = 0; i < 101; i++) {
-    const percentageA = i;
-    const percentageB = 100 - i;
-    const partA = (strengthA / 100) * percentageA;
-    const partB = (strengthB / 100) * percentageB;
+    const percentA = i;
+    const percentB = 100 - i;
+    const partA = (strengthA / 100) * percentA;
+    const partB = (strengthB / 100) * percentB;
     const strength = partA + partB;
 
     if (mix && !isCloserToValue(strength, mix.strength, targetStrength)) break;
@@ -55,8 +55,8 @@ function getBestLiquidsMix(strengthA, strengthB, targetStrength) {
     mix = {
       strength: strength,
       liquids: [
-        { strength: strengthA, percentage: percentageA },
-        { strength: strengthB, percentage: percentageB },
+        { strength: strengthA, percent: percentA },
+        { strength: strengthB, percent: percentB },
       ],
     };
   }
