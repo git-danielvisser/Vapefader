@@ -43,7 +43,7 @@ export default function LiquidsMixesTable(props) {
               <Grid item xs={12}>
                 <Box px={3}>
                   <LiquidMix
-                    bottleML={bottleML}
+                    bottleML={Number(bottleML)}
                     strength={strength}
                     liquids={liquids}
                   ></LiquidMix>
