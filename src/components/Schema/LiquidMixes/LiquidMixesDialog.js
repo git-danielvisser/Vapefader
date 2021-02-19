@@ -9,12 +9,21 @@ import {
   Divider,
   Grid,
   Typography,
+  makeStyles
 } from "@material-ui/core";
 import { Opacity } from "@material-ui/icons";
+
+const useStyles = makeStyles({
+  dialogContent: {
+    padding: "0px",
+    overflow: "hidden",
+  }
+});
 
 export default function LiquidMixesDialog(props) {
   const { strength, liquidMixes } = props;
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -47,7 +56,7 @@ export default function LiquidMixesDialog(props) {
             <Dialog maxWidth="md" open={open} onClose={handleClose}>
               <DialogTitle>Liquid mixes</DialogTitle>
               <Divider />
-              <DialogContent style={{ padding: "0px", overflow: "hidden" }}>
+              <DialogContent className={classes.dialogContent}>
                 <LiquidMixes liquidMixes={liquidMixes} />
               </DialogContent>
             </Dialog>
