@@ -1,9 +1,5 @@
 import { Box, Chip, Grid, Paper, Typography } from "@material-ui/core";
-import {
-  Opacity,
-  RadioButtonChecked,
-  Timelapse,
-} from "@material-ui/icons";
+import { Opacity, RadioButtonChecked, Timelapse } from "@material-ui/icons";
 
 export default function LiquidMixPart(props) {
   const { strength, percentage, ml } = props;
@@ -24,7 +20,6 @@ export default function LiquidMixPart(props) {
               label={`${percentage}%`}
               icon={percentage === 100 ? <RadioButtonChecked /> : <Timelapse />}
               size="small"
-              color="primary"
               variant="outlined"
             />
           </Grid>
