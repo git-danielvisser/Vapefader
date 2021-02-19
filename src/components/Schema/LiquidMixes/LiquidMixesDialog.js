@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LiquidMixes from "./LiquidMixes";
+import LiquidsMixesTable from "./LiquidsMixesTable.js";
 import {
   Box,
   Button,
@@ -58,7 +58,7 @@ export default function LiquidMixesDialog(props) {
               <DialogTitle>Liquid mixes</DialogTitle>
               <Divider />
               <DialogContent className={classes.dialogContent}>
-                <LiquidMixes liquidMixes={liquidMixes} />
+                <LiquidsMixesTable liquidMixes={liquidMixes} />
               </DialogContent>
             </Dialog>
           </Box>

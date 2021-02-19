@@ -1,3 +1,7 @@
+export function getPercentage(quantity, percent) {
+  return (quantity / 100) * percent;
+}
+
 export function isCloserToValue(a, b, value) {
   return Math.abs(value - a) < Math.abs(value - b);
 }
