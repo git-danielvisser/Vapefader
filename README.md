@@ -2,7 +2,7 @@
 
 	** Learning project and work in progress **
 
-Creates a schema that helps you gradually quit vaping or smoking.
+A website that creates a schema to help you gradually quit vaping or smoking.
 Users fill out a form. Based on that data a schema is generated and returned.
 
 The schema includes:
