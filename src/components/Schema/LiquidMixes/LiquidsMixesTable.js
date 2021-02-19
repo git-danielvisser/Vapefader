@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import LiquidMix from "./LiquidMix";
 
-import {
-  Box,
-  Divider,
-  Grid,
-  TextField,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Divider, Grid, TextField, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   gridBox: {
@@ -26,6 +20,9 @@ export default function LiquidsMixesTable(props) {
     }
   };
 
+  const keyFromLiquids = (liquids) =>
+    `${liquids[0].strength}-${liquids[1].strength}`;
+
   return (
     <Box>
       <Box p={3}>
@@ -41,8 +38,8 @@ export default function LiquidsMixesTable(props) {
       </Box>
       <Box py={3} className={classes.gridBox}>
         <Grid container spacing={3}>
-          {props.liquidMixes.map(({ strength, liquids }) => (
-            <React.Fragment>
+          {props.liquidMixes.map(({ strength, liquids }, i) => (
+            <React.Fragment key={keyFromLiquids(liquids)}>
               <Grid item xs={12}>
                 <Box px={3}>
                   <LiquidMix
