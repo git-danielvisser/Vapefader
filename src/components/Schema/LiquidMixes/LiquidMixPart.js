@@ -16,7 +16,7 @@ export default function LiquidMixPart(props) {
               label={`${strength} mg/ml`}
               icon={<Opacity />}
               size="small"
-              color="secondary"
+              color="primary"
             />
           </Grid>
           <Grid item xs>
