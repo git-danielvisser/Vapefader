@@ -9,15 +9,16 @@ import {
   Divider,
   Grid,
   Typography,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import { Opacity } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   dialogContent: {
     padding: "0px",
-    overflow: "hidden",
-  }
+    overflowX: "hidden",
+    overflowY: "auto",
+  },
 });
 
 export default function LiquidMixesDialog(props) {

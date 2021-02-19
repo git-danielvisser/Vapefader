@@ -10,11 +10,8 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  scrollBox: {
+  gridBox: {
     background: "#eee",
-    overflowY: "auto",
-    overflowX: "hidden",
-    maxHeight: "600px",
   },
 });
 
@@ -44,7 +41,7 @@ export default function LiquidsMixesTable(props) {
           fullWidth
         />
       </Box>
-      <Box py={3} className={classes.scrollBox}>
+      <Box py={3} className={classes.gridBox}>
         <Grid container spacing={3}>
           {props.liquidMixes.map(({ strength, liquids }) => (
             <React.Fragment>
