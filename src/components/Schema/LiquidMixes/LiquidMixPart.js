@@ -1,12 +1,11 @@
 import { Box, Chip, Grid, Paper, Typography } from "@material-ui/core";
 import {
-  Colorize,
   Opacity,
   RadioButtonChecked,
   Timelapse,
 } from "@material-ui/icons";
 
-export default function LiquidInfo(props) {
+export default function LiquidMixPart(props) {
   const { strength, percentage, ml } = props;
   return (
     <Paper>
