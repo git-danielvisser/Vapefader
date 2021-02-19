@@ -40,7 +40,7 @@ function renderSchemaItems(items) {
       });
 
       gridItems.push(
-        <Grid item xs={12}>
+        <Grid item xs={12} key={`divider-${date.getTime()}`}>
           <Box mt={2} mb={2}>
             <DividerText>
               <Typography variant="body2" component="h5">
@@ -54,7 +54,7 @@ function renderSchemaItems(items) {
     previousDate = date;
 
     gridItems.push(
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={4} key={`item-${date.getTime()}`}>
         <SchemaItem
           date={date}
           strength={strength}
