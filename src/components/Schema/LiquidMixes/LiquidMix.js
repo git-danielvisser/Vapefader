@@ -35,7 +35,7 @@ export default function LiquidMix(props) {
         <LiquidMixPart
           strength={strength.toFixed(2)}
           percent={100}
-          ml={bottleML}
+          ml={bottleML.toFixed(1)}
         />
       </Grid>
     </Grid>
