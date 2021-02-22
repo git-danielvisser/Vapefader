@@ -4,6 +4,7 @@ import { TextField, MenuItem, Checkbox, ListItemText } from "@material-ui/core";
 
 export default function MultipleSelect(props) {
   const {
+    helperText,
     id,
     name,
     label,
@@ -40,7 +41,7 @@ export default function MultipleSelect(props) {
       placeholder={placeholder}
       value={value}
       error={error}
-      helperText={error}
+      helperText={error || helperText}
       onChange={handleChange}
       variant={variant}
       fullWidth
