@@ -33,7 +33,7 @@ export default function generateSchema(schemaData) {
   } = schemaData;
 
   if (device === "cigarette") {
-    const sessionItems = datesFromFrequentie(
+    const sessionItems = datesFromInterval(
       startDate,
       sessions + 1,
       decreaseFrequentie
@@ -45,7 +45,7 @@ export default function generateSchema(schemaData) {
     return sessionItems;
   }
 
-  const strengthItems = datesFromFrequentie(
+  const strengthItems = datesFromInterval(
     startDate,
     strengths.length,
     decreaseFrequentie
@@ -56,7 +56,7 @@ export default function generateSchema(schemaData) {
     liquidMixes: getBestLiquidMixes(strengths[i]),
   }));
 
-  const sessionItems = datesFromFrequentie(
+  const sessionItems = datesFromInterval(
     new Date(strengthItems[strengthItems.length - 1].date),
     sessions,
     Math.round(decreaseFrequentie / 2),
@@ -74,27 +74,27 @@ export default function generateSchema(schemaData) {
 }
 
 /**
- * Creates x number of dates in a given frequentie.
+ * Creates x number of dates in a given interval.
  * @param {Date} startDate - The first date.
  * @param {number} totalDates - The total number of dates
- * @param {number} frequentie - Create date every (x) days.
- * @param {boolean} offsetStartDate - Offset the first date with frequentie.
+ * @param {number} interval - Create date every (x) days.
+ * @param {boolean} offsetStartDate - Offset the first date with interval.
  * @returns {[Date]}
  */
-export function datesFromFrequentie(
+export function datesFromInterval(
   startDate,
   totalDates,
-  frequentie,
+  interval,
   offsetStartDate = false
 ) {
   if (offsetStartDate) {
-    startDate.setDate(startDate.getDate() + frequentie);
+    startDate.setDate(startDate.getDate() + interval);
   }
 
   const dates = [];
   for (let i = 0; i < totalDates; i++) {
     const date = new Date(startDate);
-    date.setDate(startDate.getDate() + frequentie * i);
+    date.setDate(startDate.getDate() + interval * i);
     dates.push(date);
   }
   return dates;
