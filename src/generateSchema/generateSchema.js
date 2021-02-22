@@ -12,7 +12,7 @@ import {
  * @param {Date} data.startDate - The start date of the schema.
  * @param {number} data.sessions - The amount of daily smoke / vape sessions.
  * @param {[number]} data.strengths - An array with the nicotine mg/ml strengths.
- * @param {number} data.decreaseFrequentie - Decrease every (x) days.
+ * @param {number} data.decreaseInterval - Reduce every (x) days.
  * @returns {[schemaItemData]}
  *
  * return object
@@ -29,14 +29,14 @@ export default function generateSchema(schemaData) {
     startDate,
     sessions,
     strengths,
-    decreaseFrequentie,
+    decreaseInterval,
   } = schemaData;
 
   if (device === "cigarette") {
     const sessionItems = datesFromInterval(
       startDate,
       sessions + 1,
-      decreaseFrequentie
+      decreaseInterval
     ).map((date, i) => ({
       date: date,
       sessions: sessions - i,
@@ -48,7 +48,7 @@ export default function generateSchema(schemaData) {
   const strengthItems = datesFromInterval(
     startDate,
     strengths.length,
-    decreaseFrequentie
+    decreaseInterval
   ).map((date, i) => ({
     date: date,
     sessions: sessions,
@@ -59,7 +59,7 @@ export default function generateSchema(schemaData) {
   const sessionItems = datesFromInterval(
     new Date(strengthItems[strengthItems.length - 1].date),
     sessions,
-    Math.round(decreaseFrequentie / 2),
+    Math.round(decreaseInterval / 2),
     true
   ).map((date, i) => ({
     date: date,

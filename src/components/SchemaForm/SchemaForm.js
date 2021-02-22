@@ -27,14 +27,14 @@ function SchemaForm(props) {
       startDate: new Date(),
       sessions: 20,
       strengths: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-      decreaseFrequentie: 7,
+      decreaseInterval: 7,
     },
     validationSchema: Yup.object({
       device: Yup.mixed().oneOf(["vaporizer", "cigarette"]),
       startDate: Yup.date().required(reqMes),
       sessions: Yup.number().required(reqMes).min(0).max(100),
       strengths: Yup.array().of(Yup.number().min(0).max(24)).min(3),
-      decreaseFrequentie: Yup.number().required(reqMes).min(0).max(100),
+      decreaseInterval: Yup.number().required(reqMes).min(0).max(100),
     }),
     onSubmit: (values) => {
       props.onSubmit(values);
@@ -119,14 +119,14 @@ function SchemaForm(props) {
         <Grid item xs={12}>
           <TextField
             type="number"
-            id="decreaseFrequentie"
-            name="decreaseFrequentie"
-            value={values.decreaseFrequentie}
-            error={errors.decreaseFrequentie}
+            id="decreaseInterval"
+            name="decreaseInterval"
+            value={values.decreaseInterval}
+            error={errors.decreaseInterval}
             onChange={handleChange}
             inputProps={{ min: 0, max: 100, step: 1 }}
             placeholder="7"
-            label="Decrease every x days"
+            label="Reduce every x days"
             variant="outlined"
             fullWidth
           />
