@@ -21,7 +21,7 @@ The schema includes:
 Written in javascript, uses react and the material-UI framework.
 
 
-View the project on [Github pages](https://git-danielvisser.github.io/Vapefader/)
+View the project on [Github pages](https://git-danielvisser.github.io/Vapefader/).
 
 
 Feel free to use anything in your project. 😇
