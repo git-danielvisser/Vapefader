@@ -41,7 +41,7 @@ export default function MultipleSelect(props) {
       placeholder={placeholder}
       value={value}
       error={error}
-      helperText={error || helperText}
+      helperText={helperText}
       onChange={handleChange}
       variant={variant}
       fullWidth

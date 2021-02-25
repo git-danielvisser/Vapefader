@@ -9,18 +9,35 @@ import {
 } from "@material-ui/pickers";
 import MultipleSelect from "../Elements/MultipleSelect";
 
-const STRENGTH_OPTIONS = Array(25)
-  .fill()
-  .map((val, i) => ({ label: i + " mg/ml", value: i }))
-  .reverse();
+const HELP_MESSAGES = {
+  strengths:
+    "The schema reduces the nicotine content of your liquid in these steps.",
+  decreaseInterval:
+    "The schema reduces nicotine content  of your liquid every x days.",
+};
+
+const ERROR_MESSAGES = {
+  required: "This field is required",
+  mustBeNumber: "Please enter a number.",
+  minimumNumber: (field, number) =>
+    `${field} must be be more than or equal to ${number}.`,
+  maximumNumber: (field, number) =>
+    `${field} must be be less than or equal to ${number}.`,
+  invalidDate: "Please enter a valid date.",
+  minimumSteps: "Please select atleast 2 nicotine mg/ml steps.",
+};
 
 const DEVICE_OPTIONS = [
   { label: "Vaping", value: "vaporizer" },
   { label: "Smoking", value: "cigarette" },
 ];
 
+const STRENGTH_OPTIONS = Array(25)
+  .fill()
+  .map((val, i) => ({ label: i + " mg/ml", value: i }))
+  .reverse();
+
 function SchemaForm(props) {
-  const reqMes = "This field is required!";
   const formik = useFormik({
     initialValues: {
       device: "vaporizer",
@@ -30,11 +47,25 @@ function SchemaForm(props) {
       decreaseInterval: 7,
     },
     validationSchema: Yup.object({
-      device: Yup.mixed().oneOf(["vaporizer", "cigarette"]),
-      startDate: Yup.date().required(reqMes),
-      sessions: Yup.number().required(reqMes).min(0).max(100),
-      strengths: Yup.array().of(Yup.number().min(0).max(24)).min(3),
-      decreaseInterval: Yup.number().required(reqMes).min(0).max(100),
+      device: Yup.mixed().oneOf([
+        DEVICE_OPTIONS[0].value,
+        DEVICE_OPTIONS[1].value,
+      ]),
+      startDate: Yup.date()
+        .typeError(ERROR_MESSAGES.invalidDate)
+        .required(ERROR_MESSAGES.required),
+      sessions: Yup.number()
+        .typeError(ERROR_MESSAGES.mustBeNumber)
+        .required(ERROR_MESSAGES.required)
+        .min(2, ERROR_MESSAGES.minimumNumber("Daily sessions", 2))
+        .max(100, ERROR_MESSAGES.maximumNumber("Daily sessions", 100)),
+      strengths: Yup.array()
+        .of(Yup.number().min(0).max(24))
+        .min(2, ERROR_MESSAGES.minimumSteps),
+      decreaseInterval: Yup.number()
+        .required(ERROR_MESSAGES.required)
+        .min(1, ERROR_MESSAGES.minimumNumber("Reduce every x days", 1))
+        .max(100, ERROR_MESSAGES.maximumNumber("Reduce every x days", 100)),
     }),
     onSubmit: (values) => {
       props.onSubmit(values);
@@ -43,6 +74,8 @@ function SchemaForm(props) {
 
   const { values, errors, handleChange } = formik;
   const isVape = values.device === "vaporizer";
+
+  console.log(errors);
 
   return (
     <form className="schema-form" onSubmit={formik.handleSubmit}>
@@ -71,10 +104,11 @@ function SchemaForm(props) {
             <KeyboardDatePicker
               id="startDate"
               name="startDate"
-              label="Start date"
               value={values.startDate}
               error={errors.startDate}
               onChange={(date) => formik.setFieldValue("startDate", date)}
+              label="Start date"
+              helperText={errors.startDate}
               format="dd/MM/yyyy"
               KeyboardButtonProps={{
                 "aria-label": "change date",
@@ -95,8 +129,9 @@ function SchemaForm(props) {
             error={errors.sessions}
             onChange={handleChange}
             inputProps={{ min: 0, max: 100, step: 1 }}
-            placeholder="20 sessions"
             label={(isVape ? "Vape" : "Smoke") + " sessions a day"}
+            helperText={errors.sessions}
+            placeholder="20 sessions"
             variant="outlined"
             fullWidth
           />
@@ -110,7 +145,8 @@ function SchemaForm(props) {
               error={errors.strengths}
               onChange={handleChange}
               options={STRENGTH_OPTIONS}
-              label="Decrease nicotine mg/ml in steps"
+              label="Nicotine mg/ml steps"
+              helperText={errors.strengths || HELP_MESSAGES.strengths}
               placeholder="12, 10, 8 , 7, 3, 0"
               variant="outlined"
             />
@@ -125,8 +161,11 @@ function SchemaForm(props) {
             error={errors.decreaseInterval}
             onChange={handleChange}
             inputProps={{ min: 0, max: 100, step: 1 }}
-            placeholder="7"
             label="Reduce every x days"
+            helperText={
+              errors.decreaseInterval || HELP_MESSAGES.decreaseInterval
+            }
+            placeholder="7"
             variant="outlined"
             fullWidth
           />
