@@ -12,8 +12,9 @@ import MultipleSelect from "../Elements/MultipleSelect";
 const HELP_MESSAGES = {
   strengths:
     "The schema reduces the nicotine content of your liquid in these steps.",
-  decreaseInterval:
+  strengthDecreaseInterval:
     "The schema reduces nicotine content  of your liquid every x days.",
+  sessionsDecreaseInterval: "The schema reduces smoking sessions every x days.",
 };
 
 const ERROR_MESSAGES = {
@@ -40,7 +41,7 @@ const STRENGTH_OPTIONS = Array(25)
 export default function SchemaForm(props) {
   const formik = useFormik({
     initialValues: {
-      device: "vaporizer",
+      device: DEVICE_OPTIONS[0].value,
       startDate: new Date(),
       sessions: 20,
       strengths: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
@@ -74,8 +75,6 @@ export default function SchemaForm(props) {
 
   const { values, errors, handleChange } = formik;
   const isVape = values.device === "vaporizer";
-
-  console.log(errors);
 
   return (
     <form className="schema-form" onSubmit={formik.handleSubmit}>
@@ -163,7 +162,9 @@ export default function SchemaForm(props) {
             inputProps={{ min: 0, max: 100, step: 1 }}
             label="Reduce every x days"
             helperText={
-              errors.decreaseInterval || HELP_MESSAGES.decreaseInterval
+              errors.decreaseInterval || isVape
+                ? HELP_MESSAGES.strengthDecreaseInterval
+                : HELP_MESSAGES.sessionsDecreaseInterval
             }
             placeholder="7"
             variant="outlined"
