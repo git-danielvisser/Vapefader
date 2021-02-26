@@ -37,7 +37,7 @@ const STRENGTH_OPTIONS = Array(25)
   .map((val, i) => ({ label: i + " mg/ml", value: i }))
   .reverse();
 
-function SchemaForm(props) {
+export default function SchemaForm(props) {
   const formik = useFormik({
     initialValues: {
       device: "vaporizer",
@@ -185,5 +185,3 @@ function SchemaForm(props) {
     </form>
   );
 }
-
-export default SchemaForm;
